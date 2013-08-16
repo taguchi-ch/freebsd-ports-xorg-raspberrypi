@@ -19,13 +19,17 @@ OPTIONS_DEFINE=	SIMD
 .include <bsd.port.options.mk>
 
 .if ! {PORT_OPTIONS:MSIMD}
-CONFIGURE_ARGS=	--disable-vmx --disable-arm-simd
+CONFIGURE_ARGS+=	--disable-vmx --disable-arm-simd
 . if ! ${MACHINE_CPU:Mmmx}
 CONFIGURE_ARGS+=	--disable-mmx
 . endif
 . if ! ${MACHINE_CPU:Msse2}
 CONFIGURE_ARGS+=	--disable-sse2
 . endif
+.endif
+
+.if ${ARCH} == arm || ${ARCH} == armv6
+CONFIGURE_ARGS+=        --disable-arm-neon
 .endif
 
 .include <bsd.port.mk>
