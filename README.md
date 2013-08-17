@@ -14,10 +14,10 @@ you can build image with preinstalled ports tree to use
 option "UsrPorts" in crochet-freebsd.
 or you can get ports tree on your raspberrypi.
 
-# portsnap fetch
-# portsnap extract
-# cd /usr/ports
-# make fetchindex
+ # portsnap fetch
+ # portsnap extract
+ # cd /usr/ports
+ # make fetchindex
 
 3:applying changes
 to complete building, you will need to apply some changes to 
@@ -27,24 +27,24 @@ your ports tree.
 this is Aleksandr Rybalko's great job, and he had fixed xorg-
 server problem for FreeBSD ARM.
 
-# fetch --no-verify-peer https://github.com/rayddteam/x11-ser\
+ # fetch --no-verify-peer https://github.com/rayddteam/x11-ser\
 vers-xorg-server/archive/master.zip
-# unzip master.zip
-# cd x11-servers-xorg-server-master
-# cp -rf * /usr/ports/x11-servers/xorg-server
-# rm master.zip
+ # unzip master.zip
+ # cd x11-servers-xorg-server-master
+ # cp -rf * /usr/ports/x11-servers/xorg-server
+ # rm master.zip
 
 (2)x11-drivers/xf86-video-scfb
 this is also Aleksandr Rybalko's big work to port xf86-video-
 scfb driver.
 
-# fetch --no-verify-peer https://github.com/rayddteam/xf86-vi\
+ # fetch --no-verify-peer https://github.com/rayddteam/xf86-vi\
 deo-scfb/archive/master.zip
-# unzip master.zip
-# cd x11-drivers-xf86-video-scfb-master
-# cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-dr\
+ # unzip master.zip
+ # cd x11-drivers-xf86-video-scfb-master
+ # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-dr\
 ivers/xf86-video-scfb/
-# rm master.zip
+ # rm master.zip
 
 (3)x11-font/fontconfig, x11/pixman
 by default building, fc-cache, provided fontconfig, might 
@@ -54,24 +54,24 @@ x11/pixman have building issue on ARM(ports/181140)
 
 this repository will fix both issue.
 
-# fetch --no-verify-peer https://github.com/taguchi-ch/freebs\
+ # fetch --no-verify-peer https://github.com/taguchi-ch/freebs\
 d-ports-xorg-raspberrypi/archive/master.zip
-# unzip master.zip
-# cd freebsd-ports-xorg-raspberrypi/x11-font/fontconfig/
-# cp -rf * /usr/ports/x11-font/fontconfig/
-# cd ../../x11/pixman/
-# cp -rf * /usr/ports/x11/pixman/
-# rm master.zip
+ # unzip master.zip
+ # cd freebsd-ports-xorg-raspberrypi/x11-font/fontconfig/
+ # cp -rf * /usr/ports/x11-font/fontconfig/
+ # cd ../../x11/pixman/
+ # cp -rf * /usr/ports/x11/pixman/
+ # rm master.zip
 
 4:building xorg
 
-# cd /usr/ports/x11/xorg
-# make config-recursive
+ # cd /usr/ports/x11/xorg
+ # make config-recursive
 
 note: in configure, you do not need any video drivers.
 RPI video driver is provided by xf86-video-scfb.
 
-# make install clean
+ # make install clean
 
 note: if you meet a patch error in x11-servers/xorg-server,
 you will silence it to use "make PATCH=gnupatch".
@@ -155,17 +155,17 @@ EndSection
 
 6:adding setting to rc.conf
 
-# echo 'dbus_enable="YES"' >> /etc/rc.conf
-# echo 'hald_enable="YES"' >> /etc/rc.conf
+ # echo 'dbus_enable="YES"' >> /etc/rc.conf
+ # echo 'hald_enable="YES"' >> /etc/rc.conf
 
 7:booting dbus and hald
 
-# /usr/local/etc/rc.d/dbus start
-# /usr/local/etc/rc.d/hald start
+ # /usr/local/etc/rc.d/dbus start
+ # /usr/local/etc/rc.d/hald start
 
 8:booting xorg
 
-% startx
+ % startx
 
 finish!
 
