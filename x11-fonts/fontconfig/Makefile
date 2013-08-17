@@ -42,6 +42,10 @@ PORTDOCS=	fontconfig-user.html fontconfig-user.pdf fontconfig-user.txt
 
 .include <bsd.port.options.mk>
 
+.if ${ARCH} == arm || ${ARCH} == armv6
+USE_GCC=        4.2
+.endif
+
 post-install:
 .if ${PORT_OPTIONS:MDOCS}
 	${MKDIR} ${DOCSDIR}
