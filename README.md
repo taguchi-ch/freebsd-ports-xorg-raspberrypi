@@ -6,13 +6,13 @@ you **must** build a FreeBSD RaspberryPi image with option
  "MALLOC_PRODUCTION=yes". if you miss this option, it will
  cause to fail building glib20 with jemalloc issue (Failed
  assertion). if you build your image by crochet-freebsd,
- you can use option "__MAKE_CONF" to specify your make.conf.
+ you can use option "__MAKE_CONF" to specify your "make.conf".
 
 2: getting ports tree
 
 you can build image with preinstalled ports tree to use option
  "UsrPorts" in crochet-freebsd. or you can get ports tree on
- your raspberrypi.
+ your RPI.
 
     # portsnap fetch 
     # portsnap extract 
@@ -32,7 +32,7 @@ this is Aleksandr Rybalko's great job, and he had fixed xorg-server
     # fetch --no-verify-peer https://github.com/rayddteam/x11-servers-xorg-server/archive/master.zip 
     # unzip master.zip 
     # cd x11-servers-xorg-server-master 
-    # cp -rf * /usr/ports/x11-servers/xorg-server 
+    # cp -rf * /usr/ports/x11-servers/xorg-server/
     # rm master.zip 
 
 (2)x11-drivers/xf86-video-scfb
@@ -42,8 +42,8 @@ this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
     # fetch --no-verify-peer https://github.com/rayddteam/xf86-video-scfb/archive/master.zip 
     # unzip master.zip 
     # cd x11-drivers-xf86-video-scfb-master 
-    # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/ 
-    # rm master.zip 
+    # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/
+    # rm master.zip
 
 (3)x11-font/fontconfig, x11/pixman
 
@@ -70,7 +70,12 @@ note: in configure, you do not need any video drivers. RPI video
 
     # make install clean  
 
-5: making xorg.conf
+5: building xf86-video-scfb
+
+    # cd /usr/ports/x11-drivers/xf86-video-scfb/
+    # make install clean
+
+6: making xorg.conf
 
 'Xorg -configure' is not worked on RPI,yet. and you need to make
  "/etc/X11/xorg.conf" by yourself. but no problem.
@@ -146,17 +151,17 @@ the setting is following:
         InputDevice "Keyboard1" "CoreKeyboard" 
     EndSection 
 
-6: adding setting to rc.conf
+7: adding setting to rc.conf
 
     # echo 'dbus_enable="YES"' >> /etc/rc.conf 
     # echo 'hald_enable="YES"' >> /etc/rc.conf 
 
-7: booting dbus and hald
+8: booting dbus and hald
 
     # /usr/local/etc/rc.d/dbus start 
     # /usr/local/etc/rc.d/hald start 
 
-8: booting xorg
+9: booting xorg
 
     % startx 
 
