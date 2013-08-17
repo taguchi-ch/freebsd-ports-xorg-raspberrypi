@@ -2,15 +2,17 @@ This is a document to build xorg ports for FreeBSD on RaspberryPi
 
 1: preparation
 
-you **must** build a FreeBSD RaspberryPi image with option "MALLOC_PRODUCTION=yes".if you miss this option, it will cause to fail building glib20 with jemalloc issue (Failed assertion).
-
-if you build your image by crochet-freebsd, you can use option "__MAKE_CONF" to specify your make.conf.
+you **must** build a FreeBSD RaspberryPi image with option
+ "MALLOC_PRODUCTION=yes". if you miss this option, it will
+ cause to fail building glib20 with jemalloc issue (Failed
+ assertion). if you build your image by crochet-freebsd,
+ you can use option "__MAKE_CONF" to specify your make.conf.
 
 2: getting ports tree
 
-you can build image with preinstalled ports tree to use option "UsrPorts" in crochet-freebsd.
-
-or you can get ports tree on your raspberrypi.
+you can build image with preinstalled ports tree to use option
+ "UsrPorts" in crochet-freebsd. or you can get ports tree on
+ your raspberrypi.
 
     # portsnap fetch 
     # portsnap extract 
@@ -19,11 +21,13 @@ or you can get ports tree on your raspberrypi.
 
 3: applying changes
 
-to complete building, you will need to apply some changes to your ports tree.
+to complete building, you will need to apply some changes to your
+ ports tree.
 
 (1)x11/xorg-server
 
-this is Aleksandr Rybalko's great job, and he had fixed xorg-server problem for FreeBSD ARM.
+this is Aleksandr Rybalko's great job, and he had fixed xorg-server
+ problem for FreeBSD ARM.
 
     # fetch --no-verify-peer https://github.com/rayddteam/x11-servers-xorg-server/archive/master.zip 
     # unzip master.zip 
@@ -43,11 +47,10 @@ this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
 
 (3)x11-font/fontconfig, x11/pixman
 
-by default building, fc-cache, provided fontconfig, might cause to Segmentation fault (core dumped).
-
-x11/pixman have building issue on ARM(ports/181140) 
-
-this repository will fix both issue. 
+by default building, fc-cache, provided fontconfig, might cause to
+ Segmentation fault (core dumped). x11/pixman have building issue
+ on ARM(ports/181140).
+ this repository will fix both issue.
 
     # fetch --no-verify-peer https://github.com/taguchi-ch/freebsd-ports-xorg-raspberrypi/archive/master.zip 
     # unzip master.zip 
@@ -62,15 +65,18 @@ this repository will fix both issue.
     # cd /usr/ports/x11/xorg 
     # make config-recursive 
 
-note: in configure, you do not need any video drivers. RPI video driver is provided by xf86-video-scfb. 
+note: in configure, you do not need any video drivers. RPI video
+ driver is provided by xf86-video-scfb. 
 
     # make install clean  
 
 5: making xorg.conf
 
-'Xorg -configure' is not worked on raspberrypi,yet. and you need to make /etc/X11/xorg.conf by yourself. but no problem.
+'Xorg -configure' is not worked on RPI,yet. and you need to make
+ "/etc/X11/xorg.conf" by yourself. but no problem.
 
-Aleksandr Rybalko made a nice xorg.conf setting for you. what you have to do is only coping it to your xorg.conf. 
+Aleksandr Rybalko made a nice xorg.conf setting for you. what you
+ have to do is only copying it to your "xorg.conf". 
 
 the setting is following: 
 
@@ -140,17 +146,17 @@ the setting is following:
         InputDevice "Keyboard1" "CoreKeyboard" 
     EndSection 
 
-###6: adding setting to rc.conf
+6: adding setting to rc.conf
 
     # echo 'dbus_enable="YES"' >> /etc/rc.conf 
     # echo 'hald_enable="YES"' >> /etc/rc.conf 
 
-###7: booting dbus and hald
+7: booting dbus and hald
 
     # /usr/local/etc/rc.d/dbus start 
     # /usr/local/etc/rc.d/hald start 
 
-###8: booting xorg
+8: booting xorg
 
     % startx 
 
