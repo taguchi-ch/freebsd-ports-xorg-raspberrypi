@@ -59,8 +59,6 @@ RPI video driver is provided by xf86-video-scfb.
 
     # make install clean  
 
-note: if you meet a patch error in x11-servers/xorg-server, you will silence it to use "make PATCH=gnupatch". 
-
 5:making xorg.conf 
 
 'Xorg -configure' is not worked on raspberrypi,yet. 
