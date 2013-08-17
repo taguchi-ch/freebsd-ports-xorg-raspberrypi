@@ -1,23 +1,27 @@
 This is a document to build xorg ports for FreeBSD on RaspberryPi 
 
-1:preparation  
-you *must* build a FreeBSD RaspberryPi image with option "MALLOC_PRODUCTION=yes".if you miss this option, it will cause to fail building glib20 with jemalloc issue (Failed assertion). 
-if you build your image by crochet-freebsd, you can use option "__MAKE_CONF" to specify your make.conf. 
+###1: preparation
 
-2:getting ports tree 
-you can build image with preinstalled ports tree to use option "UsrPorts" in crochet-freebsd. 
-or you can get ports tree on your raspberrypi. 
+you **must** build a FreeBSD RaspberryPi image with option "MALLOC_PRODUCTION=yes".if you miss this option, it will cause to fail building glib20 with jemalloc issue (Failed assertion).
+  if you build your image by crochet-freebsd, you can use option "__MAKE_CONF" to specify your make.conf.
+
+###2: getting ports tree
+
+you can build image with preinstalled ports tree to use option "UsrPorts" in crochet-freebsd.
+  or you can get ports tree on your raspberrypi.
 
     # portsnap fetch 
     # portsnap extract 
     # cd /usr/ports 
     # make fetchindex 
 
-3:applying changes 
-to complete building, you will need to apply some changes to your ports tree. 
+###3: applying changes
 
-(1)x11/xorg-server 
-this is Aleksandr Rybalko's great job, and he had fixed xorg-server problem for FreeBSD ARM. 
+to complete building, you will need to apply some changes to your ports tree.
+
+####(1)x11/xorg-server
+
+this is Aleksandr Rybalko's great job, and he had fixed xorg-server problem for FreeBSD ARM.
 
     # fetch --no-verify-peer https://github.com/rayddteam/x11-servers-xorg-server/archive/master.zip 
     # unzip master.zip 
@@ -25,8 +29,9 @@ this is Aleksandr Rybalko's great job, and he had fixed xorg-server problem for 
     # cp -rf * /usr/ports/x11-servers/xorg-server 
     # rm master.zip 
 
-(2)x11-drivers/xf86-video-scfb 
-this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver. 
+####(2)x11-drivers/xf86-video-scfb
+
+this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
 
     # fetch --no-verify-peer https://github.com/rayddteam/xf86-video-scfb/archive/master.zip 
     # unzip master.zip 
@@ -34,12 +39,11 @@ this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
     # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/ 
     # rm master.zip 
 
-(3)x11-font/fontconfig, x11/pixman 
+####(3)x11-font/fontconfig, x11/pixman
+
 by default building, fc-cache, provided fontconfig, might cause to Segmentation fault (core dumped).
-
-x11/pixman have building issue on ARM(ports/181140) 
-
-this repository will fix both issue. 
+  x11/pixman have building issue on ARM(ports/181140) 
+  this repository will fix both issue. 
 
     # fetch --no-verify-peer https://github.com/taguchi-ch/freebsd-ports-xorg-raspberrypi/archive/master.zip 
     # unzip master.zip 
@@ -49,24 +53,24 @@ this repository will fix both issue.
     # cp -rf * /usr/ports/x11/pixman/ 
     # rm master.zip 
 
-4:building xorg 
+###4: building xorg 
 
     # cd /usr/ports/x11/xorg 
     # make config-recursive 
 
-note: in configure, you do not need any video drivers. 
-RPI video driver is provided by xf86-video-scfb. 
+note: in configure, you do not need any video drivers.
+  RPI video driver is provided by xf86-video-scfb. 
 
     # make install clean  
 
-5:making xorg.conf 
+###5: making xorg.conf
 
-'Xorg -configure' is not worked on raspberrypi,yet. 
-and you need to make /etc/X11/xorg.conf by yourself. 
-but no problem. 
+'Xorg -configure' is not worked on raspberrypi,yet.
+  and you need to make /etc/X11/xorg.conf by yourself.
+  but no problem.
 
-Aleksandr Rybalko made a nice xorg.conf setting for you. 
-what you have to do is only coping it to your xorg.conf. 
+Aleksandr Rybalko made a nice xorg.conf setting for you.
+  what you have to do is only coping it to your xorg.conf. 
 
 the setting is following: 
 
@@ -136,17 +140,17 @@ the setting is following:
         InputDevice "Keyboard1" "CoreKeyboard" 
     EndSection 
 
-6:adding setting to rc.conf 
+###6: adding setting to rc.conf
 
     # echo 'dbus_enable="YES"' >> /etc/rc.conf 
     # echo 'hald_enable="YES"' >> /etc/rc.conf 
 
-7:booting dbus and hald 
+###7: booting dbus and hald
 
     # /usr/local/etc/rc.d/dbus start 
     # /usr/local/etc/rc.d/hald start 
 
-8:booting xorg 
+###8: booting xorg
 
     % startx 
 
