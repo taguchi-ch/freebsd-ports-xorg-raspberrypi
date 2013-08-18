@@ -11,8 +11,8 @@ you **must** build a FreeBSD RaspberryPi image with option
 2: getting ports tree
 
 you can build image with preinstalled ports tree to use option
- "UsrPorts" in crochet-freebsd. or you can get ports tree on
- your RPI.
+ "UsrPorts" in crochet-freebsd. or you can get ports tree manually
+ on your RPI.
 
     # portsnap fetch 
     # portsnap extract 
@@ -21,13 +21,13 @@ you can build image with preinstalled ports tree to use option
 
 3: applying changes
 
-to complete building, you will need to apply some changes to your
+to complete building, you might need to apply some changes to your
  ports tree.
 
 (1)x11/xorg-server
 
 this is Aleksandr Rybalko's great job, and he had fixed xorg-server
- problem for FreeBSD ARM.
+ issue for FreeBSD ARM.
 
     # fetch --no-verify-peer https://github.com/rayddteam/x11-servers-xorg-server/archive/master.zip 
     # unzip master.zip 
@@ -77,7 +77,7 @@ note: in configure, you do not need any video drivers. RPI video
 
 6: making xorg.conf
 
-'Xorg -configure' is not worked on RPI,yet. and you need to make
+'Xorg -configure' is not worked on RPI, yet. and you need to make
  "/etc/X11/xorg.conf" by yourself. but no problem.
 
 Aleksandr Rybalko made a nice xorg.conf setting for you. what you
@@ -165,5 +165,4 @@ the setting is following:
 
     % startx 
 
-finish! 
-
+enjoy!
