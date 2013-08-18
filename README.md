@@ -7,6 +7,7 @@ you **must** build a FreeBSD RaspberryPi image with option
  cause to fail building glib20 with jemalloc issue (Failed
  assertion). if you build your image by crochet-freebsd,
  you can use option "__MAKE_CONF" to specify your "make.conf".
+ and you do not set "WITH_NEW_XORG=yes" about this building yet.
 
 2: getting ports tree
 
