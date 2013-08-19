@@ -62,6 +62,7 @@ by default building, fc-cache, provided x11-fonts/fontconfig, might
     # cp -rf * /usr/ports/x11/pixman/
 
 (4) graphics/libGL, graphics/dri
+
 if you want to build xorg with "WITH_NEW_XORG=yes" on ARM, you will
  meet error of graphics/libGL and/or graphics/dri.
  both issue will fix applying Olivier Cochard-Labbe's patch(ports/176703
@@ -71,7 +72,8 @@ if you want to build xorg with "WITH_NEW_XORG=yes" on ARM, you will
     # cp -rf * /usr/ports/graphics/libGL
 
 (5) security/libgcrypt
-security/libgcrypt has a building issue, and it will fix to apply Rui
+
+security/libgcrypt has a building issue on ARM, and it will fix to apply Rui
  Paulo's patch(ports/181365).
 
     # cd ../../security/libgcrypt
