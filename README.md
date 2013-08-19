@@ -25,7 +25,7 @@ you can build image with preinstalled ports tree to use option
 to complete building, you might need to apply some changes to your
  ports tree.
 
-(1)x11/xorg-server
+(1) x11/xorg-server
 
 this is Aleksandr Rybalko's great job, and he had fixed xorg-server
  issue for FreeBSD ARM.
@@ -36,7 +36,7 @@ this is Aleksandr Rybalko's great job, and he had fixed xorg-server
     # cp -rf * /usr/ports/x11-servers/xorg-server/
     # rm master.zip 
 
-(2)x11-drivers/xf86-video-scfb
+(2) x11-drivers/xf86-video-scfb
 
 this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
 
@@ -46,20 +46,36 @@ this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
     # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/
     # rm master.zip
 
-(3)x11-font/fontconfig, x11/pixman
+(3) x11-font/fontconfig, x11/pixman
 
-by default building, fc-cache, provided fontconfig, might cause to
- Segmentation fault (core dumped). x11/pixman have building issue
- on ARM(ports/181140).
+by default building, fc-cache, provided x11-fonts/fontconfig, might
+ cause to Segmentation fault (core dumped) on ARM(ports/181372).
+ x11/pixman have building issue on ARM(ports/181140).
  this repository will fix both issue.
 
     # fetch --no-verify-peer https://github.com/taguchi-ch/freebsd-ports-xorg-raspberrypi/archive/master.zip 
     # unzip master.zip 
+    # rm master.zip
     # cd freebsd-ports-xorg-raspberrypi/x11-font/fontconfig/  
     # cp -rf * /usr/ports/x11-font/fontconfig/ 
     # cd ../../x11/pixman/ 
-    # cp -rf * /usr/ports/x11/pixman/ 
-    # rm master.zip 
+    # cp -rf * /usr/ports/x11/pixman/
+
+(4) graphics/libGL, graphics/dri
+if you want to build xorg with "WITH_NEW_XORG=yes" on ARM, you will
+ meet error of graphics/libGL and/or graphics/dri.
+ both issue will fix applying Olivier Cochard-Labbe's patch(ports/176703
+ and 176705) to graphics/libGL only. 
+
+    # cd ../../graphics/libGL
+    # cp -rf * /usr/ports/graphics/libGL
+
+(5) security/libgcrypt
+security/libgcrypt has a building issue, and it will fix to apply Rui
+ Paulo's patch(ports/181365).
+
+    # cd ../../security/libgcrypt
+    # cp -rf * /usr/ports/security/libgcrypt
 
 4: building xorg 
 
