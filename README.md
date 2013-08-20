@@ -44,9 +44,7 @@ this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
     # fetch --no-verify-peer https://github.com/rayddteam/xf86-video-scfb/archive/master.zip
     # unzip master.zip
     # rm master.zip
-    # cd x11-drivers-xf86-video-scfb-master
-    # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/
-    # cd ../
+    # cp -rf xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/
 
 (3) x11-font/fontconfig, x11/pixman
 
@@ -55,12 +53,12 @@ by default building, fc-cache, provided x11-fonts/fontconfig, might
  x11/pixman have building issue on ARM(ports/181140).
  this repository will fix both issue.
 
-    # fetch --no-verify-peer https://github.com/taguchi-ch/freebsd-ports-xorg-raspberrypi/archive/master.zip 
-    # unzip master.zip 
+    # fetch --no-verify-peer https://github.com/taguchi-ch/freebsd-ports-xorg-raspberrypi/archive/master.zip
+    # unzip master.zip
     # rm master.zip
-    # cd freebsd-ports-xorg-raspberrypi/x11-font/fontconfig/  
-    # cp -rf * /usr/ports/x11-font/fontconfig/ 
-    # cd ../../x11/pixman/ 
+    # cd freebsd-ports-xorg-raspberrypi-master/x11-fonts/fontconfig/
+    # cp -rf * /usr/ports/x11-fonts/fontconfig/
+    # cd ../../x11/pixman/
     # cp -rf * /usr/ports/x11/pixman/
 
 (4) graphics/libGL, graphics/dri
@@ -70,20 +68,20 @@ if you want to build xorg with "WITH_NEW_XORG=yes" on ARM, you will
  both issue will fix applying Olivier Cochard-Labbe's patch(ports/176703
  and 176705) to graphics/libGL only. 
 
-    # cd ../../graphics/libGL
-    # cp -rf * /usr/ports/graphics/libGL
+    # cd ../../graphics/libGL/
+    # cp -rf * /usr/ports/graphics/libGL/
 
 (5) security/libgcrypt
 
 security/libgcrypt has a building issue on ARM, and it will fix to apply Rui
  Paulo's patch(ports/181365).
 
-    # cd ../../security/libgcrypt
-    # cp -rf * /usr/ports/security/libgcrypt
+    # cd ../../security/libgcrypt/
+    # cp -rf * /usr/ports/security/libgcrypt/
 
 4: building xorg 
 
-    # cd /usr/ports/x11/xorg 
+    # cd /usr/ports/x11/xorg/
     # make config-recursive 
 
 note: in configure, you do not need any video drivers. RPI video
