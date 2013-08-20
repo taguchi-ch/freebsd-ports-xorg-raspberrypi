@@ -30,21 +30,23 @@ to complete building, you might need to apply some changes to your
 this is Aleksandr Rybalko's great job, and he had fixed xorg-server
  issue for FreeBSD ARM.
 
-    # fetch --no-verify-peer https://github.com/rayddteam/x11-servers-xorg-server/archive/master.zip 
-    # unzip master.zip 
-    # cd x11-servers-xorg-server-master 
+    # fetch --no-verify-peer https://github.com/rayddteam/x11-servers-xorg-server/archive/master.zip
+    # unzip master.zip
+    # rm master.zip
+    # cd x11-servers-xorg-server-master
     # cp -rf * /usr/ports/x11-servers/xorg-server/
-    # rm master.zip 
+    # cd ../
 
 (2) x11-drivers/xf86-video-scfb
 
 this is also Aleksandr Rybalko's big work to port xf86-video-scfb driver.
 
-    # fetch --no-verify-peer https://github.com/rayddteam/xf86-video-scfb/archive/master.zip 
-    # unzip master.zip 
-    # cd x11-drivers-xf86-video-scfb-master 
-    # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/
+    # fetch --no-verify-peer https://github.com/rayddteam/xf86-video-scfb/archive/master.zip
+    # unzip master.zip
     # rm master.zip
+    # cd x11-drivers-xf86-video-scfb-master
+    # cp -rf x11-drivers-xf86-video-scfb-master /usr/ports/x11-drivers/xf86-video-scfb/
+    # cd ../
 
 (3) x11-font/fontconfig, x11/pixman
 
