@@ -73,11 +73,8 @@ if you want to build xorg with "WITH_NEW_XORG=yes" on ARM, you will
 
 (5) security/libgcrypt
 
-security/libgcrypt has a building issue on ARM, and it will fix to apply Rui
- Paulo's patch(ports/181365).
-
-    # cd ../../security/libgcrypt/
-    # cp -rf * /usr/ports/security/libgcrypt/
+security/libgcrypt had a building issue on ARM (ports/181365 by Rui Paulo).
+PR had been submited and this issue fixed.
 
 4: building xorg 
 
