@@ -89,6 +89,7 @@ note: in configure, you do not need any video drivers. RPI video
 5: building xf86-video-scfb
 
     # cd /usr/ports/x11-drivers/xf86-video-scfb/
+    # ./configure
     # make install clean
 
 6: making xorg.conf
