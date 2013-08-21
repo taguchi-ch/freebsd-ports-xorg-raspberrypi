@@ -76,7 +76,7 @@ building xorg with "WITH_NEW_XORG=yes" on ARM, you will
 (5) security/libgcrypt
 
 security/libgcrypt had a building issue on ARM (ports/181365 by Rui Paulo).
-PR had been submited and this issue fixed.
+PR had been commited and this issue fixed.
 
 4: building xorg 
 
